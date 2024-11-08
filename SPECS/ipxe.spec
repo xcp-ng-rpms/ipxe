@@ -1,7 +1,7 @@
 %global package_speccommit 9047e9f1fa9daad02098fb628df6270f760fdf4e
 %global usver 20121005
 %global xsver 1.0.6
-%global xsrel %{xsver}%{?xscount}%{?xshash}
+%global xsrel %{xsver}.1%{?xscount}%{?xshash}
 %global package_srccommit a712dae709a
 
 # Resulting binary formats we want from iPXE
@@ -63,7 +63,7 @@ BuildRequires: gcc
 BuildRequires: perl
 BuildRequires: syslinux
 BuildRequires: mtools
-BuildRequires: mkisofs
+BuildRequires: genisoimage
 BuildRequires: binutils-devel
 BuildRequires: xz-devel
 %{?_cov_buildrequires}
@@ -92,6 +92,9 @@ install -D -m 0644 src/bin/ipxe.bin %{buildroot}/%{_datadir}/%{name}/ipxe.bin
 %{?_cov_results_package}
 
 %changelog
+* Fri Nov 08 2024 Yann Dirson <yann.dirson@vates.tech> - 20121005-1.0.6.1
+- breq genisoimage not mkisofs
+
 * Fri Feb 11 2022 Ross Lagerwall <ross.lagerwall@citrix.com> - 20121005-1.0.6
 - CP-38416: Enable static analysis
 
