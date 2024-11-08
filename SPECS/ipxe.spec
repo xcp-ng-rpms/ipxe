@@ -94,6 +94,7 @@ install -D -m 0644 src/bin/ipxe.bin %{buildroot}/%{_datadir}/%{name}/ipxe.bin
 %changelog
 * Fri Nov 08 2024 Yann Dirson <yann.dirson@vates.tech> - 20121005-1.0.6.1
 - breq genisoimage not mkisofs
+- refresh patch for zero-fuzz constraint on Alma 10
 
 * Fri Feb 11 2022 Ross Lagerwall <ross.lagerwall@citrix.com> - 20121005-1.0.6
 - CP-38416: Enable static analysis
