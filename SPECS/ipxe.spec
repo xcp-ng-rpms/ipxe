@@ -1,7 +1,7 @@
 %global package_speccommit 9b634abd4f9d0fee463e45ace05e21f84c353540
 %global usver 20121005
 %global xsver 1.0.7
-%global xsrel %{xsver}%{?xscount}%{?xshash}
+%global xsrel %{xsver}.0.ydi.1%{?xscount}%{?xshash}
 %global package_srccommit a712dae709a
 
 # Resulting binary formats we want from iPXE
@@ -94,8 +94,9 @@ DNS, HTTP, iSCSI, etc.
 %{?_cov_prepare}
 
 %build
-%{?_cov_wrap} make %{?_smp_mflags} -C src bin/rtl8139.rom
-%{?_cov_wrap} make %{?_smp_mflags} -C src bin/8086100e.rom
+export NO_WERROR=1
+%{?_cov_wrap} make WORKAROUND_LDFLAGS=--allow-multiple-definition %{?_smp_mflags} -C src bin/rtl8139.rom
+%{?_cov_wrap} make WORKAROUND_LDFLAGS=--allow-multiple-definition %{?_smp_mflags} -C src bin/8086100e.rom
 
 %install
 cat src/bin/rtl8139.rom src/bin/8086100e.rom > src/bin/ipxe.bin
@@ -108,6 +109,10 @@ install -D -m 0644 src/bin/ipxe.bin %{buildroot}/%{_datadir}/%{name}/ipxe.bin
 %{?_cov_results_package}
 
 %changelog
+* Fri Nov 08 2024 Yann Dirson <yann.dirson@vates.tech> - 20121005-1.0.7.0.ydi.1
+- disable -Werror and friends, set --allow-multiple-definition so this
+  ancient source code can build
+
 * Mon Jul 29 2024 Stephen Cheng <stephen.cheng@cloud.com> - 20121005-1.0.7
 - CP-46112: Build compatible with XS9
 
