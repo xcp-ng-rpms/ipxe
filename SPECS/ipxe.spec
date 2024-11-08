@@ -78,8 +78,9 @@ DNS, HTTP, iSCSI, etc.
 %{?_cov_prepare}
 
 %build
-%{?_cov_wrap} make %{?_smp_mflags} -C src bin/rtl8139.rom
-%{?_cov_wrap} make %{?_smp_mflags} -C src bin/8086100e.rom
+export NO_WERROR=1
+%{?_cov_wrap} make WORKAROUND_LDFLAGS=--allow-multiple-definition %{?_smp_mflags} -C src bin/rtl8139.rom
+%{?_cov_wrap} make WORKAROUND_LDFLAGS=--allow-multiple-definition %{?_smp_mflags} -C src bin/8086100e.rom
 
 %install
 cat src/bin/rtl8139.rom src/bin/8086100e.rom > src/bin/ipxe.bin
@@ -95,6 +96,8 @@ install -D -m 0644 src/bin/ipxe.bin %{buildroot}/%{_datadir}/%{name}/ipxe.bin
 * Fri Nov 08 2024 Yann Dirson <yann.dirson@vates.tech> - 20121005-1.0.6.1
 - breq genisoimage not mkisofs
 - refresh patch for zero-fuzz constraint on Alma 10
+- disable -Werror and friends, set --allow-multiple-definition so this
+  ancient source code can build
 
 * Fri Feb 11 2022 Ross Lagerwall <ross.lagerwall@citrix.com> - 20121005-1.0.6
 - CP-38416: Enable static analysis
