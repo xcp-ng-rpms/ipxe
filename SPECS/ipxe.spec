@@ -1,7 +1,7 @@
 %global package_speccommit 9b634abd4f9d0fee463e45ace05e21f84c353540
 %global usver 20121005
 %global xsver 1.0.7
-%global xsrel %{xsver}.0.ydi.1%{?xscount}%{?xshash}
+%global xsrel %{xsver}.0.ydi.2%{?xscount}%{?xshash}
 %global package_srccommit a712dae709a
 
 # Resulting binary formats we want from iPXE
@@ -76,7 +76,7 @@ Patch32: 0001-build-Be-explicit-about-fcommon-compiler-directive.patch
 BuildArch: noarch
 
 BuildRequires: gcc
-BuildRequires: perl
+BuildRequires: perl-interpreter, perl-libs, perl(FindBin)
 # BuildRequires: syslinux
 # BuildRequires: mtools
 # BuildRequires: mkisofs
@@ -109,9 +109,10 @@ install -D -m 0644 src/bin/ipxe.bin %{buildroot}/%{_datadir}/%{name}/ipxe.bin
 %{?_cov_results_package}
 
 %changelog
-* Fri Nov 08 2024 Yann Dirson <yann.dirson@vates.tech> - 20121005-1.0.7.0.ydi.1
+* Fri Nov 08 2024 Yann Dirson <yann.dirson@vates.tech> - 20121005-1.0.7.0.ydi.2
 - disable -Werror and friends, set --allow-multiple-definition so this
   ancient source code can build
+- Change Requires: perl to perl-interpreter
 
 * Mon Jul 29 2024 Stephen Cheng <stephen.cheng@cloud.com> - 20121005-1.0.7
 - CP-46112: Build compatible with XS9
